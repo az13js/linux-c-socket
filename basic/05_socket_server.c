@@ -14,6 +14,7 @@ int do_listen_and_accept(int fd) {
     struct sockaddr_in *temp;
     int *len_of_sockaddr;
     int peer_socket;
+    char *buf;
     listen_result = listen(fd, SOMAXCONN);
     if (0 != listen_result) {
         // 处理listen失败的情况
@@ -29,6 +30,7 @@ int do_listen_and_accept(int fd) {
             len_of_sockaddr = (int *)malloc(sizeof(int));
             *len_of_sockaddr = sizeof(struct sockaddr);
             peer_addr = (struct sockaddr *)malloc(sizeof(struct sockaddr));
+            buf = (char *)malloc(100 * sizeof(char));
             // accept函数直到有客户端连接上来才会返回
             peer_socket = accept(fd, peer_addr, len_of_sockaddr);
             if (-1 == peer_socket) {
@@ -43,6 +45,10 @@ int do_listen_and_accept(int fd) {
                 printf("Client address: %s\n", inet_ntoa(temp->sin_addr));
                 // 打印端口号
                 printf("Client port: %d\n", ntohs(temp->sin_port));
+
+                // 接收内容并打印
+                recv(peer_socket, buf, 100, 0);
+                printf("Contents: %s\n", buf);
 
                 // 关闭连接
                 shutdown_result = shutdown(peer_socket, SHUT_RDWR);
@@ -62,6 +68,7 @@ int do_listen_and_accept(int fd) {
             }
             free(len_of_sockaddr);
             free(peer_addr);
+            free(buf);
         }
     }
     return 0;

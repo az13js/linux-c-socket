@@ -11,6 +11,8 @@
 int set_address(int fd) {
     int inet_aton_return, connect_return, shutdown_result;
     struct sockaddr_in *addr;
+    char buf[10] = {'a', 'b', 'c', '\0'};
+    ssize_t len;
     addr = (struct sockaddr_in *)malloc(sizeof(struct sockaddr_in));
     if (0 == addr) {
         printf("Malloc fail! sockaddr_in\n");
@@ -26,6 +28,8 @@ int set_address(int fd) {
         connect_return = connect(fd, (struct sockaddr *)addr, sizeof(struct sockaddr_in));
         if (0 == connect_return) {
             printf("Connect success.\n");
+            len = send(fd, buf, 4, 0);
+            printf("Send %ld byte\n", len);
             // 关闭连接
             shutdown_result = shutdown(fd, SHUT_RDWR);
             if (0 != shutdown_result) {
