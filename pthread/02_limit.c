@@ -1,3 +1,4 @@
+// 测试一条进程可以创建多少条线程
 #include <stdio.h>
 #include <pthread.h>
 #include <unistd.h>
@@ -10,7 +11,7 @@ void *thread_function (void *arg) {
 int main(void) {
     pthread_t *threads;
     int result;
-    int test_total = 10000;
+    int test_total = 20000;
     int i;
 
     threads = (pthread_t *)calloc(test_total, sizeof(pthread_t));
