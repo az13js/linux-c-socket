@@ -6,3 +6,5 @@
 
 [pthread](https://www.man7.org/linux/man-pages/man3/pthread_create.3.html)
 
+*文件夹basic是Socket的内容，pthread是POSIX线程的内容，虽然POSIX线程和Socket是没有直接关系，但是出于提升网络应用程序的性能方面的考虑顺便研究下*
+
