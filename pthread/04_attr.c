@@ -15,7 +15,7 @@ int main(void) {
     attr = (pthread_attr_t *)malloc(sizeof(pthread_attr_t));
     // 不用malloc申请内存的方式也是没问题的，比如：
     // pthread_attr_t attr_no_malloc;
-    // pthread_attr_t attr = &attr_no_malloc;
+    // pthread_attr_t *attr = &attr_no_malloc;
 
     // 设置线程执行特性的参数
     if (0 != pthread_attr_init(attr)) {
